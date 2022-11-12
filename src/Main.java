@@ -1,8 +1,8 @@
-import java.util.Hashtable;
-import java.util.Scanner;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Hashtable<String, Integer> grade_letter = new Hashtable<>();
         Hashtable<String, Integer> course_type = new Hashtable<>();
         String[] grade = {"A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"}; // string array to for loop the dict put to save lines
@@ -24,14 +24,28 @@ public class Main {
         double[] credits = new double[course_amount];
         String[] course_types = new String[course_amount];
         String[] grade_list = new String[course_amount];
-        System.out.println(" Please be mindful that your credits per class are significant. \n " +
+        System.out.println("Is this your first time using the calculator? (Y/N)");
+        String strMessage = " Please be mindful that your credits per class are significant, as well as your course types in a weighted GPA. \n " +
                 "If your course is more specific upon credits, consult the 2022 Program of Studies. \n" +
                 "Phys Ed - 3.0 w/ lab pullout, 3.75 w/ out. \n" +
                 "Health - 1.0 w/ lab pullout, 1.25 w/ out. \n" +
                 "Core Science - 6.0\n" +
-                "Core Classes (Math, English, etc.) - 5.0 \n" +
+                "Core Classes (Math, English, Language, etc.) - 5.0 \n" +
                 "Full year electives - 5.0 \n" +
-                "One Semester electives - 2.5 \n");
+                "One Semester electives - 2.5 \n" +
+                "CP - College Prep -> Normal courses. \n" +
+                "H - Honors -> Honors OR High-level courses/electives. \n" +
+                "AP - Advanced Placement -> Always in front of course title. \n";
+        String tutorial = scanner2.nextLine();
+        switch (tutorial) {
+            case "Y": {
+                printSlow(strMessage);
+            }
+            case "N": {
+                break;
+            }
+        }
+
         for (int k = 0; k < course_amount; k++) {
             System.out.println("Enter information for your first/next course below. \n   ");
             System.out.println("How many credits is this course?: ");
@@ -52,12 +66,17 @@ public class Main {
         for (int l = 0; l < course_amount; l++) {
             quality_cred_sum += quality[Integer.parseInt(grade_list[l])][Integer.parseInt(course_types[l])] * credits[l];
         }
-            System.out.println("Your weighted GPA is: " + quality_cred_sum / credit_sum);
+        System.out.println("Your weighted GPA is: " + quality_cred_sum / credit_sum);
+    }
 
-
-
-
-
-
+    /**
+     * @param message //string
+     */
+    public static void printSlow(String message) throws InterruptedException {
+        for (int i = 0; i < message.length(); i++) {
+            char c = message.charAt(i);
+            System.out.print(c);
+            TimeUnit.MILLISECONDS.sleep(20);
+        }
     }
 }
