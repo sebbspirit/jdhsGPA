@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.Hashtable;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
@@ -45,15 +46,15 @@ public class Main {
                 break;
             }
         }
-
         for (int k = 0; k < course_amount; k++) {
-            System.out.println("Enter information for your first/next course below. \n   ");
+            System.out.println("Enter information for your course below. \n   ");
             System.out.println("How many credits is this course?: ");
             credits[k] = scanner.nextDouble();
             System.out.println("What type of course is this?: ");
             course_types[k] = String.valueOf(course_type.get(scanner2.nextLine()));
-            System.out.println("What is your grade in this course? (letter):");
-            grade_list[k] = String.valueOf(grade_letter.get(scanner2.nextLine()));
+            System.out.println("What is your grade in this course? ");
+            int grade_input = scanner.nextInt();
+            grade_list[k] = String.valueOf(grade_letter.get(gradeConv(grade_input)));
         }// reads input, finalizes arrays to be mutable
         double credit_sum = 0;
         double quality_cred_sum = 0;
@@ -78,5 +79,36 @@ public class Main {
             System.out.print(c);
             TimeUnit.MILLISECONDS.sleep(20);
         }
+    }
+
+    public static String gradeConv(int grade_y) {
+        String letter_grade = "";
+        if (grade_y <= 100 && grade_y >= 98) {
+            letter_grade = "A+";
+        } else if (grade_y < 98 && grade_y >= 92) {
+            letter_grade = "A";
+        } else if (grade_y < 92 && grade_y >= 90) {
+            letter_grade = "A-";
+        } else if (grade_y < 90 && grade_y >= 86) {
+            letter_grade = "B+";
+        } else if (grade_y < 86 && grade_y >= 82) {
+            letter_grade = "B";
+        } else if (grade_y < 82 && grade_y >= 80) {
+            letter_grade = "B-";
+        } else if (grade_y < 80 && grade_y >= 76) {
+            letter_grade = "C+";
+        } else if (grade_y < 76 && grade_y >= 72) {
+            letter_grade = "C";
+        } else if (grade_y < 72 && grade_y >= 70) {
+            letter_grade = "C-";
+        } else if (grade_y < 70 && grade_y >= 65) {
+            letter_grade = "D";
+        } else if (grade_y < 65) {
+            letter_grade = "F";
+        } else {
+            System.out.println("Input insufficient. Try again!");
+            System.exit(0);
+        }
+        return letter_grade;
     }
 }
