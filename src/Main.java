@@ -45,7 +45,7 @@ public class Main {
         for (int k = 0; k < course_amount; k++) {
             credits[k] = Double.parseDouble(JOptionPane.showInputDialog("Enter information for your course below. \n How many credits is this course?: "));
             course_types[k] = String.valueOf(course_type.get(JOptionPane.showInputDialog("What type of course is this?: ")));
-            grade_list[k] = String.valueOf(grade_letter.get(gradeConv(Integer.parseInt(JOptionPane.showInputDialog("Enter your grade in this course: ")))));
+            grade_list[k] = String.valueOf(grade_letter.get(gradeConv(String.valueOf(JOptionPane.showInputDialog("Enter your grade in this course: ")))));
         }// reads input, finalizes arrays to be mutable
         double credit_sum = 0;
         double quality_cred_sum = 0;
@@ -61,34 +61,42 @@ public class Main {
         JOptionPane.showMessageDialog(null, "Your weighted GPA is: " + String.format("%.5f", quality_cred_sum / credit_sum));
     }
 
-    public static String gradeConv(int grade_y) {
+    public static String gradeConv(String grade_y) {
         String letter_grade = "";
-        if (grade_y <= 105 && grade_y >= 98) {
-            letter_grade = "A+";
-        } else if (grade_y < 98 && grade_y >= 92) {
-            letter_grade = "A";
-        } else if (grade_y < 92 && grade_y >= 90) {
-            letter_grade = "A-";
-        } else if (grade_y < 90 && grade_y >= 86) {
-            letter_grade = "B+";
-        } else if (grade_y < 86 && grade_y >= 82) {
-            letter_grade = "B";
-        } else if (grade_y < 82 && grade_y >= 80) {
-            letter_grade = "B-";
-        } else if (grade_y < 80 && grade_y >= 76) {
-            letter_grade = "C+";
-        } else if (grade_y < 76 && grade_y >= 72) {
-            letter_grade = "C";
-        } else if (grade_y < 72 && grade_y >= 70) {
-            letter_grade = "C-";
-        } else if (grade_y < 70 && grade_y >= 65) {
-            letter_grade = "D";
-        } else if (grade_y < 65 && grade_y >= 0) {
-            letter_grade = "F";
-        } else {
-            System.out.println("Input insufficient. Try again!");
-            System.exit(0);
+        if (isNumeric(grade_y)) {
+            int grade_z = Integer.parseInt(grade_y);
+            if (grade_z <= 105 && grade_z >= 98) {
+                letter_grade = "A+";
+            } else if (grade_z < 98 && grade_z >= 92) {
+                letter_grade = "A";
+            } else if (grade_z < 92 && grade_z >= 90) {
+                letter_grade = "A-";
+            } else if (grade_z < 90 && grade_z >= 86) {
+                letter_grade = "B+";
+            } else if (grade_z < 86 && grade_z >= 82) {
+                letter_grade = "B";
+            } else if (grade_z < 82 && grade_z >= 80) {
+                letter_grade = "B-";
+            } else if (grade_z < 80 && grade_z >= 76) {
+                letter_grade = "C+";
+            } else if (grade_z < 76 && grade_z >= 72) {
+                letter_grade = "C";
+            } else if (grade_z < 72 && grade_z >= 70) {
+                letter_grade = "C-";
+            } else if (grade_z < 70 && grade_z >= 65) {
+                letter_grade = "D";
+            } else if (grade_z < 65 && grade_z >= 0) {
+                letter_grade = "F";
+            }
+        }
+        else {
+            letter_grade = grade_y;
         }
         return letter_grade;
+    }
+    // big problem, BIG solution!
+
+    public static boolean isNumeric(String s) {
+        return s != null && s.matches("[-+]?\\d*\\.?\\d+");
     }
 }
