@@ -1,3 +1,5 @@
+package jdhsGPA;
+
 import java.util.Hashtable;
 import javax.swing.*;
 
@@ -43,7 +45,7 @@ public class Main {
             }
         }
         for (int k = 0; k < course_amount; k++) {
-            credits[k] = Double.parseDouble(JOptionPane.showInputDialog("Enter information for your course below. \n How many credits is this course?: "));
+            credits[k] = Double.parseDouble(JOptionPane.showInputDialog("Enter information for course " + (k+1) + " out of " + course_amount + " ( below. \n How many credits is this course?: "));
             course_types[k] = String.valueOf(course_type.get(JOptionPane.showInputDialog("What type of course is this?: ")));
             grade_list[k] = String.valueOf(grade_letter.get(gradeConv(String.valueOf(JOptionPane.showInputDialog("Enter your grade in this course: ")))));
         }// reads input, finalizes arrays to be mutable
@@ -95,6 +97,7 @@ public class Main {
         return letter_grade;
     }
     // big problem, BIG solution!
+    // 10/11/23 4.17 uw, 4.61 weighted
 
     public static boolean isNumeric(String s) {
         return s != null && s.matches("[-+]?\\d*\\.?\\d+");
